@@ -1075,6 +1075,8 @@ PLUTOBOOK_API const char* plutobook_get_error_message(void);
  */
 PLUTOBOOK_API void plutobook_clear_error_message(void);
 
+PLUTOBOOK_API void plutobook_set_fontconfig_path(const char* path);
+
 #ifdef __cplusplus
 }
 #endif
