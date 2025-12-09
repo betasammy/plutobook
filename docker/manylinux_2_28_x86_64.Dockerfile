@@ -5,18 +5,34 @@ ENV PATH="/opt/python/cp312-cp312/bin:${PATH}"
 
 RUN dnf -y update && \
     dnf -y install \
-        libcurl-devel \
         libicu-devel \
-        openssl-devel \
-        bzip2-devel \
+        gnutls-devel \
+        nettle-devel \
+        libunistring-devel \
         brotli-devel \
-        gperf && \
+        bzip2-devel \
+        gperf \
+        make \
+        autoconf \
+        automake \
+        libtool \
+        wget \
+        xz && \
     dnf clean all
+
+WORKDIR /tmp
+RUN wget https://curl.se/download/curl-8.6.0.tar.xz && \
+    tar -xf curl-8.6.0.tar.xz && \
+    cd curl-8.6.0 && \
+    ./configure --with-gnutls --prefix=/usr && \
+    make -j$(nproc) && \
+    make install
+
+RUN curl-config --ssl-backends
 
 RUN $PYTHON3 -m pip install --upgrade pip meson ninja
 
 WORKDIR /tmp
-
 RUN git clone https://github.com/plutoprint/plutobook.git && \
     cd plutobook && \
     meson setup build --buildtype=release --prefix=/usr && \
