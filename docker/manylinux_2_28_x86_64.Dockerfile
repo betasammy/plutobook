@@ -7,6 +7,7 @@ RUN dnf -y update && \
     dnf -y install \
         libicu-devel \
         libpsl-devel \
+        libnghttp2-devel \
         gnutls-devel \
         nettle-devel \
         libunistring-devel \
