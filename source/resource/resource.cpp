@@ -10,6 +10,7 @@
 #include <fstream>
 #endif
 
+#include <iostream>
 #include <filesystem>
 #include <cstring>
 #include <vector>
@@ -273,7 +274,10 @@ ResourceData DefaultResourceFetcher::fetchUrl(const std::string& url)
     std::string textEncoding;
     auto content = ByteArrayCreate();
 
+    std::cout << curl_version() << std::endl;
+
     auto curl = curl_easy_init();
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     curl_easy_setopt(curl, CURLOPT_URL, url.data());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, content);
