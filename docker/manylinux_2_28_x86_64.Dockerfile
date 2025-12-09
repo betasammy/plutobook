@@ -6,6 +6,7 @@ ENV PATH="/opt/python/cp312-cp312/bin:${PATH}"
 RUN dnf -y update && \
     dnf -y install \
         libicu-devel \
+        libpsl-devel \
         gnutls-devel \
         nettle-devel \
         libunistring-devel \
